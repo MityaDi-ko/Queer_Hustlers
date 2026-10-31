@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg47909"
+   version="1.1"
+   viewBox="0 0 6.614583 6.6145832"
+   height="25"
+   width="25">
+  <defs
+     id="defs47903">
+    <filter
+       filterUnits="userSpaceOnUse"
+       height="24"
+       width="24"
+       y="65"
+       x="496.39999"
+       id="bp">
+      <feOffset
+         id="feOffset45327"
+         dy="1" />
+      <feGaussianBlur
+         id="feGaussianBlur45329"
+         result="bq" />
+      <feFlood
+         id="feFlood45331"
+         flood-color="#fff" />
+      <feComposite
+         result="result1"
+         id="feComposite45333"
+         in2="bq"
+         operator="in" />
+      <feComposite
+         id="feComposite45335"
+         in2="result1"
+         in="SourceGraphic" />
+    </filter>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="216.55966"
+       x2="594.2196"
+       x1="594.2196"
+       id="j"
+       gradientTransform="scale(1.0215078,0.97894501)"
+       y1="193.06499">
+      <stop
+         id="stop45113"
+         stop-color="#65aacc"
+         offset="0" />
+      <stop
+         id="stop45115"
+         stop-color="#afd2e4"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <metadata
+     id="metadata47906">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-290.38543)"
+     id="layer1">
+    <g
+       id="g47184"
+       style="filter:url(#bp)"
+       transform="matrix(0.26458333,0,0,0.26458333,-131.20687,273.31981)">
+      <path
+         id="path47182"
+         transform="translate(-98.6,-124)"
+         d="m 600,208 h -4 v -4 h 4 z m 6,0 h -4 v -8 h 4 z m 6,0 h -4 v -13 h 4 z m 6,0 h -4 v -19 h 4 z m 1,2 h -24 v 2 h 24 z"
+         style="fill:url(#j)" />
+    </g>
+  </g>
+</svg>

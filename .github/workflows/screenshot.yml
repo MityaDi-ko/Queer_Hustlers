@@ -1,0 +1,38 @@
+name: Daily Torn Travel Screenshot
+
+on:
+  schedule:
+    - cron: '0 1 * * *' # Запускається щодня о 06:00 ранку UTC
+  workflow_dispatch:     # Дозволяє запускати вручну з вкладки Actions
+
+jobs:
+  take-screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate and download screenshot
+        run: |
+          # URL вашої сторінки на Blogger (замініть на свою)
+          TARGET_URL="https://queerhustlers.blogspot.com/2026/11/TornCityExportIntercityArbitrage.html"
+          
+          # Формуємо запит до ApiFlash (ширина 720px, затримка 4 секунди для підвантаження іконок)
+          ENCODED_URL=$(echo -n "$TARGET_URL" | jq -s -r @uri)
+          API_ENDPOINT="https://api.apiflash.com/v1/urltoimage?access_key=${{ secrets.APIFLASH_KEY }}&url=${ENCODED_URL}&width=720&delay=4000&fresh=true"
+          
+          curl -s "$API_ENDPOINT" -o travel.png
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          
+          git add travel.png
+          # Перевіряємо, чи є зміни, щоб не робити пустих комітів
+          if git diff --staged --quiet; then
+            echo "No changes in screenshot."
+          else
+            git commit -m "Auto-update travel screenshot [skip ci]"
+            git push
+          fi

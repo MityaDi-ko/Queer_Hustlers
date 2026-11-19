@@ -2,7 +2,7 @@ name: Daily Torn Travel Screenshot
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -18,14 +18,17 @@ jobs:
       - name: Generate and download screenshot
         env:
           APIFLASH_KEY: ${{ secrets.APIFLASH_KEY }}
+          TARGET_URL: "https://queerhustlers.blogspot.com/2026/11/TornCityExportIntercityArbitrage.html"
         run: |
-          TARGET_URL="https://queerhustlers.blogspot.com/2026/11/TornCityExportIntercityArbitrage.html"
-          ENCODED_URL=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$TARGET_URL")
-
-          curl --fail --show-error -sSL \
-            "https://api.apiflash.com/v1/urltoimage?access_key=${APIFLASH_KEY}&url=${ENCODED_URL}&wait_until=network_idle&delay=10&width=720&full_page=true&fresh=true" \
+          curl --fail --show-error -sSL -G "https://api.apiflash.com/v1/urltoimage" \
+            --data-urlencode "access_key=${APIFLASH_KEY}" \
+            --data-urlencode "url=${TARGET_URL}" \
+            --data-urlencode "wait_until=network_idle" \
+            --data-urlencode "delay=10" \
+            --data-urlencode "width=720" \
+            --data-urlencode "full_page=true" \
+            --data-urlencode "fresh=true" \
             -o travel.png
-
           ls -lh travel.png
 
       - name: Commit and push changes

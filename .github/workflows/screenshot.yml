@@ -19,7 +19,7 @@ jobs:
           
           # Формуємо запит до ApiFlash (ширина 720px, затримка 4 секунди для підвантаження іконок)
           ENCODED_URL=$(echo -n "$TARGET_URL" | jq -s -r @uri)
-          API_ENDPOINT="https://api.apiflash.com/v1/urltoimage?access_key=${{ secrets.APIFLASH_KEY }}&url=${ENCODED_URL}&width=720&delay=4000&fresh=true"
+          API_ENDPOINT="https://api.apiflash.com/v1/urltoimage?access_key=${{ secrets.APIFLASH_KEY }}&url=${ENCODED_URL}&wait_until=network_idle&delay=10&width=720&full_page=true&fresh=true"
           
           curl -s "$API_ENDPOINT" -o travel.png
 

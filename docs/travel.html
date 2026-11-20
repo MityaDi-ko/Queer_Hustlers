@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torn City — Export & Intercity Arbitrage</title>
+  <style>
+    /* Базові стилі сторінки замість теми Blogger */
+    body {
+      margin: 0;
+      padding: 12px;
+      background-color: #0f172a; /* темний фон, підлаштуй під колір свого блогу */
+      color: #f8fafc;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Сюди вставляєш увесь код із поста Blogger (CSS, HTML-контейнер і JS-скрипт) -->
+  <style>
+  html, body {
+    overflow-x: hidden;
+  }
+    .header-gif {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  .torn-arb-widget {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #121417;
+    color: #e1e4e8;
+    padding: clamp(10px, 2.2vw, 20px) clamp(10px, 2.8vw, 28px);
+    border-radius: 0;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    box-sizing: border-box;
+    font-size: clamp(13px, 1.4vw, 16px);
+  }
+  .torn-arb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #2e333b;
+    padding-bottom: 10px;
+  }
+  .torn-arb-title {
+    font-size: clamp(16px, 2.2vw, 23px);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.25;
+  }
+  .torn-arb-updated {
+    font-size: clamp(12px, 1.3vw, 14px);
+    color: #9ba3ae;
+    text-align: right;
+    margin-left: auto;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .torn-arb-card {
+    background: #1c1f24;
+    border: 1px solid #2e333b;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .torn-arb-card.export-card {
+    background: #18222f;
+    border-color: #3b82f6;
+  }
+  .torn-arb-card.import-shop-card {
+    background: #231e16;
+    border-color: #f59e0b;
+  }
+  .torn-arb-card-title {
+    padding: 10px clamp(12px, 2vw, 18px);
+    font-size: clamp(14px, 1.6vw, 17px);
+    font-weight: 700;
+    color: #61dafb;
+    border-bottom: 1px solid #2e333b;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .torn-arb-card.import-shop-card .torn-arb-card-title {
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.08);
+  }
+  .torn-arb-row {
+    display: flex;
+    align-items: center;
+    padding: 10px clamp(10px, 2vw, 18px);
+    font-size: clamp(13px, 1.4vw, 16px);
+    border-bottom: 1px solid rgba(46, 51, 59, 0.5);
+    gap: clamp(8px, 1.5vw, 16px);
+  }
+  .torn-arb-row:nth-child(even) {
+    background: rgba(255, 255, 255, 0.025);
+  }
+  .torn-arb-row:last-child {
+    border-bottom: none;
+  }
+  .arb-left-group {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: clamp(8px, 1.4vw, 14px);
+  }
+  .arb-right-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: clamp(8px, 1.4vw, 16px);
+  }
+  .arb-step {
+    min-width: 28px;
+    color: #9ba3ae;
+    font-weight: 700;
+    font-size: clamp(12px, 1.25vw, 15px);
+    flex-shrink: 0;
+  }
+  .arb-route {
+    min-width: clamp(135px, 18vw, 230px);
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: clamp(12.5px, 1.35vw, 16px);
+    flex-shrink: 0;
+  }
+  .arb-country-badge {
+    color: #60a5fa;
+    font-weight: 700;
+  }
+  .arb-country-badge-import {
+    color: #fbbf24;
+    font-weight: 700;
+  }
+  .arb-img {
+    width: clamp(54px, 8.5vw, 112px) !important;
+    height: clamp(34px, 5.2vw, 68px) !important;
+    max-width: none !important;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .arb-item-wrap {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .arb-item-name {
+    color: #f3f4f6;
+    font-weight: 600;
+    font-size: clamp(13px, 1.4vw, 16px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .stock-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-green { background: #4ade80; }
+  .dot-red { background: #ef4444; }
+  .dot-gray { background: #6e7681; }
+  .arb-buy {
+    min-width: 96px;
+    text-align: right;
+    color: #cbd5e1;
+    font-size: clamp(12.5px, 1.35vw, 16px);
+    white-space: nowrap;
+  }
+  .torn-arb-widget .arb-buy .arb-rrp {
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    color: #9ba3ae !important;
+    margin-right: 3px;
+  }
+  .arb-target {
+    min-width: 120px;
+    color: #cbd5e1;
+    font-size: clamp(12.5px, 1.35vw, 16px);
+    white-space: nowrap;
+  }
+  .arb-prices {
+    min-width: 95px;
+    text-align: right;
+    line-height: 1.25;
+  }
+  .arb-sell {
+    color: #4ade80;
+    font-weight: 700;
+    font-size: clamp(13px, 1.4vw, 16px);
+    display: block;
+    white-space: nowrap;
+  }
+  .arb-profit {
+    color: #4ade80;
+    font-size: clamp(11.5px, 1.2vw, 14px);
+    font-weight: 600;
+    display: block;
+    white-space: nowrap;
+  }
+  .torn-arb-loading {
+    text-align: center;
+    padding: 32px;
+    color: #9ba3ae;
+    font-size: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .arb-route {
+      min-width: 130px;
+    }
+    .arb-target {
+      min-width: 95px;
+    }
+    .arb-buy {
+      min-width: 84px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .torn-arb-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .torn-arb-updated {
+      margin-left: 0;
+      text-align: left;
+    }
+    .torn-arb-row {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 10px;
+      padding: 10px 12px;
+    }
+    .arb-left-group {
+      width: 100%;
+    }
+    .arb-route {
+      min-width: 0;
+      white-space: nowrap;
+    }
+    .arb-right-group {
+      width: 100%;
+      justify-content: space-between;
+      padding-left: 28px;
+      box-sizing: border-box;
+    }
+    .arb-buy {
+      min-width: 0;
+      text-align: left;
+    }
+    .arb-target {
+      min-width: 0;
+    }
+    .arb-prices {
+      min-width: 0;
+      margin-left: auto;
+      text-align: right;
+    }
+  }
+</style>
+
+<!-- Шапка з GIF на всю ширину екрана -->
+<header>
+  <a href="https://mityadi-ko.github.io/Queer_Hustlers/docs/travel.html">
+    <img
+      alt="Queer Hustlers"
+      class="header-gif"
+      src="header.gif"
+    />
+  </a>
+</header>
+<div id="torn-arbitrage-root" class="torn-arb-widget">
+  <div class="torn-arb-loading">Loading arbitrage data...</div>
+</div>
+
+<script>
+(function() {
+  const API_URL = "https://torn-respect-tracker.memodim-f.workers.dev/?type=travel_json";
+
+  const root = document.getElementById("torn-arbitrage-root");
+  document.body.classList.add("arb-fullwidth");
+  const fmt = (n) => "$" + Number(n).toLocaleString("en-US");
+
+  function formatServerSync(data) {
+    if (data && data.syncedUtc) {
+      return `Sync once a day · ${data.syncedUtc}`;
+    }
+    if (data && data.updatedAt) {
+      const d = new Date(data.updatedAt);
+      if (!isNaN(d.getTime())) {
+        const hh = String(d.getUTCHours()).padStart(2, "0");
+        const mm = String(d.getUTCMinutes()).padStart(2, "0");
+        return `Sync once a day · ${hh}:${mm} UTC`;
+      }
+    }
+    return "Sync once a day";
+  }
+
+  async function loadData() {
+    try {
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Failed to load data");
+      const data = await res.json();
+      render(data);
+    } catch (err) {
+      root.innerHTML = `<div class="torn-arb-loading" style="color:#ff6b6b;">Error loading data: ${err.message}</div>`;
+    }
+  }
+
+  function render(data) {
+    const syncLabel = formatServerSync(data);
+    let html = `
+      <div class="torn-arb-header">
+        <h3 class="torn-arb-title">Torn City — Export, Torn Shops Import &amp; Arbitrage</h3>
+        <span class="torn-arb-updated">${syncLabel}</span>
+      </div>
+    `;
+
+    // 1. Блок експорту з Torn (унікальні предмети, без дублів)
+    if (data.exportTop16 && Array.isArray(data.exportTop16) && data.exportTop16.length > 0) {
+      html += `<div class="torn-arb-card export-card">
+        <div class="torn-arb-card-title">Top Export from Torn Market (${data.exportTop16.length})</div>`;
+
+      data.exportTop16.forEach((item, index) => {
+        html += `
+          <div class="torn-arb-row">
+            <div class="arb-left-group">
+              <span class="arb-step">#${index + 1}</span>
+              <span class="arb-route">Torn &rarr; <span class="arb-country-badge">${item.to}</span></span>
+              <img class="arb-img" src="${item.image}" alt="${item.name}" loading="lazy" />
+              <div class="arb-item-wrap">
+                <span class="arb-item-name" title="${item.name}">${item.name}</span>
+              </div>
+            </div>
+            <div class="arb-right-group">
+              <span class="arb-buy"> ${fmt(item.buyPrice)}<span class="arb-rrp">RRP</span></span>
+              <div class="arb-prices">
+                <span class="arb-sell">${fmt(item.sellPrice)}</span>
+                <span class="arb-profit">+${fmt(item.profit)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+    }
+
+    // 2. Блок імпорту в магазини міста Torn (унікальні предмети, без дублів)
+    if (data.importToTornShopsTop16 && Array.isArray(data.importToTornShopsTop16) && data.importToTornShopsTop16.length > 0) {
+      html += `<div class="torn-arb-card import-shop-card">
+        <div class="torn-arb-card-title">Top Import to Torn City Shops (${data.importToTornShopsTop16.length})</div>`;
+
+      data.importToTornShopsTop16.forEach((item, index) => {
+        html += `
+          <div class="torn-arb-row">
+            <div class="arb-left-group">
+              <span class="arb-step">#${index + 1}</span>
+              <span class="arb-route"><span class="arb-country-badge-import">${item.from}</span> &rarr; <span>${item.shopName}</span></span>
+              <img class="arb-img" src="${item.image}" alt="${item.name}" loading="lazy" />
+              <div class="arb-item-wrap">
+                <span class="arb-item-name" title="${item.name}">${item.name}</span>
+              </div>
+            </div>
+            <div class="arb-right-group">
+              <span class="arb-buy">${fmt(item.buyPrice)}</span>
+              <div class="arb-prices">
+                <span class="arb-sell">${fmt(item.sellPrice)}</span>
+                <span class="arb-profit">+${fmt(item.profit)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+    }
+
+    // 3. Таблиці міждержавного арбітражу по країнах
+    if (data.arbitrage) {
+      for (const country in data.arbitrage) {
+        const rows = data.arbitrage[country];
+        if (!rows || rows.length === 0) continue;
+
+        html += `<div class="torn-arb-card">
+          <div class="torn-arb-card-title">${country}</div>`;
+
+        rows.forEach(row => {
+          let dotClass = "dot-gray";
+          let stockTitle = "No YATA stock data";
+
+          if (row.stockQty !== null && row.stockQty !== undefined) {
+            if (row.stockQty > 0) {
+              dotClass = "dot-green";
+              stockTitle = `In stock: ${row.stockQty} pcs`;
+            } else {
+              dotClass = "dot-red";
+              stockTitle = "Out of stock (0 pcs)";
+            }
+          }
+
+          html += `
+            <div class="torn-arb-row">
+              <div class="arb-left-group">
+                <img class="arb-img" src="${row.image}" alt="${row.name}" loading="lazy" />
+                <div class="arb-item-wrap">
+                  <span class="arb-item-name" title="${row.name}">${row.name}</span>
+                  <span class="stock-dot ${dotClass}" title="${stockTitle}"></span>
+                </div>
+              </div>
+              <div class="arb-right-group">
+                <span class="arb-buy">${fmt(row.buyPrice)}</span>
+                <span class="arb-target">&rarr; <span class="arb-country-badge">${row.sellTarget}</span></span>
+                <div class="arb-prices">
+                  <span class="arb-sell">${fmt(row.sellPrice)}</span>
+                  <span class="arb-profit">+${fmt(row.profit)}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+    }
+
+    root.innerHTML = html;
+  }
+
+  loadData();
+})();
+</script>
+
+</body>
+</html>

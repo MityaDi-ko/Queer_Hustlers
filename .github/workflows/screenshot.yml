@@ -18,7 +18,7 @@ jobs:
       - name: Generate and download screenshot
         env:
           APIFLASH_KEY: ${{ secrets.APIFLASH_KEY }}
-          TARGET_URL: "https://mityadi-ko.github.io/Queer_Hustlers/docs/travel.html"
+          TARGET_URL: "https://mityadi-ko.github.io/Queer_Hustlers/travel.html"
         run: |
           curl --fail --show-error -sSL -G "https://api.apiflash.com/v1/urltoimage" \
             --data-urlencode "access_key=${APIFLASH_KEY}" \

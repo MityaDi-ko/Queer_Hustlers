@@ -25,7 +25,7 @@ jobs:
             --data-urlencode "url=${TARGET_URL}" \
             --data-urlencode "wait_until=network_idle" \
             --data-urlencode "delay=10" \
-            --data-urlencode "width=720" \
+            --data-urlencode "width=640" \
             --data-urlencode "full_page=true" \
             --data-urlencode "fresh=true" \
             --data-urlencode "no_animation=true" \

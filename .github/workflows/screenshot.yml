@@ -18,7 +18,7 @@ jobs:
       - name: Generate and download screenshot
         env:
           APIFLASH_KEY: ${{ secrets.APIFLASH_KEY }}
-          TARGET_URL: "https://queerhustlers.blogspot.com/2026/11/TornCityExportIntercityArbitrage.html"
+          TARGET_URL: "https://mityadi-ko.github.io/Queer_Hustlers/docs/travel.html"
         run: |
           curl --fail --show-error -sSL -G "https://api.apiflash.com/v1/urltoimage" \
             --data-urlencode "access_key=${APIFLASH_KEY}" \
@@ -28,6 +28,7 @@ jobs:
             --data-urlencode "width=720" \
             --data-urlencode "full_page=true" \
             --data-urlencode "fresh=true" \
+            --data-urlencode "no_animation=true" \
             -o travel.png
           ls -lh travel.png
 

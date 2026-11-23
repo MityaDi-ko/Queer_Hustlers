@@ -236,6 +236,13 @@
       color: #9ba3ae;
       font-size: 14px;
     }
+
+    .arb-star {
+      color: #fbbf24;
+      font-size: 13px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -402,11 +409,13 @@
           `;
 
           rows.forEach(row => {
+            const starHtml = row.isBestRoute ? `<span class="arb-star">★</span>` : "";
             arbHtml += `
               <div class="torn-arb-row">
                 <div class="arb-left-group">
                   <img class="arb-img" src="${row.image}" alt="${row.name}" loading="lazy" />
                   <div class="arb-item-wrap">
+                    ${starHtml}
                     <span class="arb-item-name" title="${row.name}">${row.name}</span>
                   </div>
                 </div>

@@ -1,418 +1,1318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html lang="en">
+<html b:css='false' b:js='false' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Torn City — Export & Intercity Arbitrage</title>
+    <meta charset='utf-8'/>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <title><data:blog.pageTitle/></title>
+    <b:skin><![CDATA[
+        /* Темні стилі та розширений GIF на всю ширину */
+        body {
+            background-color: #01050c;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #01050c;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            border-bottom: 1px solid #1f2937;
+            text-align: center;
+        }
+        /* Максимальне розширення GIF на всю ширину екрана */
+        .header-gif {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .post {
+            background: #111827;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border: 1px solid #1f2937;
+        }
+        .post h3 a {
+            color: #f3f4f6;
+            text-decoration: none;
+        }
+        .post h3 a:hover {
+            color: #77e4ff;
+        }
+        a {
+            color: #77e4ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        body.arb-fullwidth .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body.arb-fullwidth .post {
+            background: #121417;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            border: none;
+        }
 
+        /* Стилі таблиць тревел-арбітражу */
+        .travel-dashboard {
+            color: #e5e7eb;
+            margin-top: 16px;
+        }
+        .travel-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: #0b1120;
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        .travel-meta strong {
+            color: #77e4ff;
+        }
+        .travel-refresh-btn {
+            background: #1e293b;
+            color: #77e4ff;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .travel-refresh-btn:hover {
+            background: #273549;
+        }
+        .travel-section {
+            margin-bottom: 32px;
+        }
+        .travel-section-title {
+            font-size: 20px;
+            margin: 0 0 12px 0;
+            color: #f9fafb;
+            border-left: 4px solid #77e4ff;
+            padding-left: 10px;
+        }
+        .travel-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+        }
+        .travel-card {
+            background: #0b1120;
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+        }
+        .travel-card h4 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            color: #77e4ff;
+        }
+        table.arb-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table.arb-table th,
+        table.arb-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #1f2937;
+            text-align: left;
+            vertical-align: middle;
+        }
+        table.arb-table th {
+            color: #9ca3af;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            background: #111827;
+        }
+        table.arb-table tr:last-child td {
+            border-bottom: none;
+        }
+        .arb-item-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .arb-item-img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            border-radius: 4px;
+            background: #111827;
+            flex-shrink: 0;
+        }
+        .arb-item-name {
+            font-weight: 500;
+            color: #f3f4f6;
+        }
+        .arb-item-type {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        .arb-profit {
+            color: #34d399;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .arb-price {
+            color: #e5e7eb;
+            white-space: nowrap;
+        }
+        .arb-country {
+            color: #77e4ff;
+            white-space: nowrap;
+        }
+        .arb-shop {
+            display: block;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        .travel-empty {
+            color: #9ca3af;
+            font-size: 14px;
+            padding: 8px 0;
+        }
+        .travel-error {
+            background: #2a1215;
+            border: 1px solid #7f1d1d;
+            color: #fca5a5;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    ]]></b:skin>
 </head>
 <body>
 
-  <!-- Сюди вставляєш увесь код із поста Blogger (CSS, HTML-контейнер і JS-скрипт) -->
-  <style>
-  html, body {
-    margin: 0;
-    padding: 0px;
-    background-color: #121417;
-    color: #e1e4e8;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    overflow-x: hidden;
-  }
+    <!-- Шапка з GIF на всю ширину екрана -->
+    <header>
+        <a expr:href='data:blog.homepageUrl'>
+            <img alt='Queer Hustlers' class='header-gif' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSv0z2YuIJUV-upJz8oGcatI_2WiYFLWp1H2MKOkQL8Xncr6er8PTlMYMcm5LwLLCUoqQytAi7qWk4CMBmB3FHV9aawiUwmRBi60prTw6t5JHrbkRyrkGAn9VzkIZJ5gtgMhf4XD-FiOst8_Zu2YG1qBe32BfwaYKXhXYzoO6d_tPWEzk1SXjIGxCL-DMj/s1600/QueerHustlrs_BESTbig.gif'/>
+        </a>
+    </header>
 
-  .header-gif {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 6px 6px 0 0;
-  }
-
-  .torn-arb-widget {
-    background: #121417;
-    color: #e1e4e8;
-    padding: 6px 4px;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    font-size: 13px;
-  }
-
-  .torn-arb-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 4px 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #2e333b;
-    padding-bottom: 6px;
-  }
-
-  .torn-arb-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    line-height: 1.2;
-  }
-
-.torn-arb-updated {
-    font-size: clamp(12px, 1.3vw, 14px);
-    color: #9ba3ae;
-    text-align: right;
-    margin-left: auto;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  .torn-arb-card {
-    background: #1c1f24;
-    border: 1px solid #2e333b;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    overflow: hidden;
-  }
-
-  .torn-arb-card.export-card {
-    background: #18222f;
-    border-color: #3b82f6;
-  }
-
-  .torn-arb-card.import-shop-card {
-    background: #231e16;
-    border-color: #f59e0b;
-  }
-
-  .torn-arb-card-title {
-    padding: 7px 10px;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #61dafb;
-    border-bottom: 1px solid #2e333b;
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  .torn-arb-card.import-shop-card .torn-arb-card-title {
-    color: #fbbf24;
-    background: rgba(245, 158, 11, 0.08);
-  }
-
-  .torn-arb-row {
-    display: flex;
-    align-items: center;
-    padding: 6px 8px;
-    font-size: 12.5px;
-    border-bottom: 1px solid rgba(46, 51, 59, 0.55);
-    gap: 6px;
-  }
-
-  .torn-arb-row:nth-child(even) {
-    background: rgba(255, 255, 255, 0.025);
-  }
-
-  .torn-arb-row:last-child {
-    border-bottom: none;
-  }
-
-  .arb-left-group {
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
-    min-width: 0;
-    gap: 6px;
-  }
-
-  .arb-right-group {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-shrink: 0;
-    gap: 8px;
-  }
-
-  .arb-step {
-    min-width: 22px;
-    color: #9ba3ae;
-    font-weight: 700;
-    font-size: 11.5px;
-    flex-shrink: 0;
-  }
-
-  .arb-route {
-    min-width: 112px;
-    font-weight: 600;
-    color: #e2e8f0;
-    font-size: 11.5px;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  .arb-country-badge {
-    color: #60a5fa;
-    font-weight: 700;
-  }
-
-  .arb-country-badge-import {
-    color: #fbbf24;
-    font-weight: 700;
-  }
-
-  .arb-img {
-    width: 56px !important;
-    height: 34px !important;
-    max-width: none !important;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
-
-  .arb-item-wrap {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    min-width: 0;
-  }
-
-  .arb-item-name {
-    color: #f3f4f6;
-    font-weight: 600;
-    font-size: 12.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .stock-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .dot-green { background: #4ade80; }
-  .dot-red { background: #ef4444; }
-  .dot-gray { background: #6e7681; }
-
-  .arb-buy {
-    min-width: 78px;
-    text-align: right;
-    color: #cbd5e1;
-    font-size: 12px;
-    white-space: nowrap;
-  }
-
-.torn-arb-widget .arb-buy .arb-rrp {
-    font-size: 9px !important;
-    font-weight: 400 !important;
-    color: #9ba3ae !important;
-    margin-left: 2px;
-    margin-right: 0;
-  }
-
-  .arb-target {
-    min-width: 82px;
-    color: #cbd5e1;
-    font-size: 11.5px;
-    white-space: nowrap;
-  }
-
-  .arb-prices {
-    min-width: 78px;
-    text-align: right;
-    line-height: 1.2;
-  }
-
-  .arb-sell {
-    color: #4ade80;
-    font-weight: 700;
-    font-size: 12.5px;
-    display: block;
-    white-space: nowrap;
-  }
-
-.arb-profit {
-    color: #4ade80;
-    font-size: clamp(11.5px, 1.2vw, 14px);
-    font-weight: 600;
-    display: block;
-    white-space: nowrap;
-  }
-
-  .torn-arb-loading {
-    text-align: center;
-    padding: 24px;
-    color: #9ba3ae;
-    font-size: 14px;
-  }
-</style>
-
-<!-- Шапка з GIF на всю ширину екрана -->
-<header>
-  <a href="https://mityadi-ko.github.io/Queer_Hustlers/docs/travel.html">
-    <img
-      alt="Queer Hustlers"
-      class="header-gif"
-      src="QueerHustlrs_BESTbig.gif"
-    />
-  </a>
-</header>
-<div id="torn-arbitrage-root" class="torn-arb-widget">
-  <div class="torn-arb-loading">Loading arbitrage data...</div>
-</div>
-
-<script>
-(function() {
-  const API_URL = "https://torn-respect-tracker.memodim-f.workers.dev/?type=travel_json";
-
-  const root = document.getElementById("torn-arbitrage-root");
-  document.body.classList.add("arb-fullwidth");
-  const fmt = (n) => "$" + Number(n).toLocaleString("en-US");
-
-  function formatServerSync(data) {
-    if (data && data.syncedUtc) {
-      return `Sync once a day · ${data.syncedUtc}`;
-    }
-    if (data && data.updatedAt) {
-      const d = new Date(data.updatedAt);
-      if (!isNaN(d.getTime())) {
-        const hh = String(d.getUTCHours()).padStart(2, "0");
-        const mm = String(d.getUTCMinutes()).padStart(2, "0");
-        return `Sync once a day · ${hh}:${mm} UTC`;
-      }
-    }
-    return "Sync once a day";
-  }
-
-  async function loadData() {
-    try {
-      const res = await fetch(API_URL);
-      if (!res.ok) throw new Error("Failed to load data");
-      const data = await res.json();
-      render(data);
-    } catch (err) {
-      root.innerHTML = `<div class="torn-arb-loading" style="color:#ff6b6b;">Error loading data: ${err.message}</div>`;
-    }
-  }
-
-  function render(data) {
-    const syncLabel = formatServerSync(data);
-    let html = `
-      <div class="torn-arb-header">
-        <h3 class="torn-arb-title">Torn City — Export, Torn Shops Import &amp; Arbitrage</h3>
-        <span class="torn-arb-updated">${syncLabel}</span>
+    <!-- Основний контент (пости) -->
+    <div class='container'>
+        <b:section id='main' showaddelement='yes'>
+          <b:widget id='Blog1' locked='true' title='Публікації блогу' type='Blog' version='1'>
+            <b:widget-settings>
+              <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+              <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+              <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+              <b:widget-setting name='showAuthor'>false</b:widget-setting>
+              <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+              <b:widget-setting name='reactionsLabel'/>
+              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+              <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+              <b:widget-setting name='showLabels'>true</b:widget-setting>
+              <b:widget-setting name='showLocation'>true</b:widget-setting>
+              <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+              <b:widget-setting name='postsPerAd'>4</b:widget-setting>
+              <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+              <b:widget-setting name='showInlineAds'>true</b:widget-setting>
+              <b:widget-setting name='showReactions'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+                    <b:loop values='data:posts' var='post'>
+                        <div class='post'>
+                            <h3><a expr:href='data:post.url'><data:post.title/></a></h3>
+                            <div class='post-body'>
+                                <data:post.body/>
+                            </div>
+                        </div>
+                    </b:loop>
+                </b:includable>
+            <b:includable id='backlinkDeleteIcon' var='backlink'/>
+            <b:includable id='backlinks' var='post'/>
+            <b:includable id='comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <b:if cond='data:mobile'>
+      <h4 id='comment-post-message'>
+        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h4>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+    <b:else/>
+      <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    </b:if>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
       </div>
-    `;
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:top.deleteCommentMsg'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='comment_count_picker' var='post'>
+  <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
+    <data:post.commentLabelFull/>:
+  </a>
+</b:includable>
+            <b:includable id='comment_picker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threaded_comments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+            <b:includable id='comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+      <h4><data:post.commentLabelFull/>:</h4>
 
-    // 1. Блок експорту з Torn (унікальні предмети, без дублів)
-    if (data.exportTop16 && Array.isArray(data.exportTop16) && data.exportTop16.length > 0) {
-      html += `<div class="torn-arb-card export-card">
-        <div class="torn-arb-card-title">Top Export from Torn Market (${data.exportTop16.length})</div>`;
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:post.oldestLinkText/></a>
+              &#160;
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:post.olderLinkText/></a>
+              &#160;
+          </b:if>
 
-      data.exportTop16.forEach((item, index) => {
-        html += `
-          <div class="torn-arb-row">
-            <div class="arb-left-group">
-              <span class="arb-step">#${index + 1}</span>
-              <span class="arb-route">Torn &rarr; <span class="arb-country-badge">${item.to}</span></span>
-              <img class="arb-img" src="${item.image}" alt="${item.name}" loading="lazy" />
-              <div class="arb-item-wrap">
-                <span class="arb-item-name" title="${item.name}">${item.name}</span>
+          <data:post.commentRangeText/>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:post.newerLinkText/></a>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:post.newestLinkText/></a>
+          </b:if>
+        </span>
+      </b:if>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+          <b:loop values='data:post.comments' var='comment'>
+            <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+              <b:if cond='data:comment.favicon'>
+                <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
+              </b:if>
+              <a expr:name='data:comment.anchorName'/>
+              <b:if cond='data:blog.enabledCommentProfileImages'>
+                <data:comment.authorAvatarImage/>
+              </b:if>
+              <b:if cond='data:comment.authorUrl'>
+                <a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a>
+              <b:else/>
+                <data:comment.author/>
+              </b:if>
+              <data:commentPostedByMsg/>
+            </dt>
+            <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+              <b:if cond='data:comment.isDeleted'>
+                <span class='deleted-comment'><data:comment.body/></span>
+              <b:else/>
+                <p>
+                  <data:comment.body/>
+                </p>
+              </b:if>
+            </dd>
+            <dd class='comment-footer'>
+              <span class='comment-timestamp'>
+                <a expr:href='data:comment.url' title='comment permalink'>
+                  <data:comment.timestamp/>
+                </a>
+                <b:include data='comment' name='commentDeleteIcon'/>
+              </span>
+            </dd>
+          </b:loop>
+        </dl>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+            <data:post.oldestLinkText/>
+          </a>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+            <data:post.olderLinkText/>
+          </a>
+          &#160;
+          <data:post.commentRangeText/>
+          &#160;
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+            <data:post.newerLinkText/>
+          </a>
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+            <data:post.newestLinkText/>
+          </a>
+        </span>
+      </b:if>
+
+      <p class='comment-footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='comment-form'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:elseif cond='data:post.allowComments'/>
+          <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a>
+        </b:if>
+      </p>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+
+  </div>
+</b:includable>
+            <b:includable id='feedLinks'>
+  <b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:include cond='data:post.allowComments and data:post.feedLinks' data='post.feedLinks' name='feedLinksBody'/>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:feedLinksMsg/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='iframe_comments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='mobile-index-post' var='post'>
+  <div class='mobile-date-outer date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <div class='date-header'>
+        <span><data:post.dateHeader/></span>
+      </div>
+    </b:if>
+
+    <div class='mobile-post-outer'>
+      <a expr:href='data:post.url'>
+        <h3 class='mobile-index-title entry-title' itemprop='name'>
+          <data:post.title/>
+        </h3>
+
+        <div class='mobile-index-arrow'>&amp;rsaquo;</div>
+
+        <div class='mobile-index-contents'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <div class='mobile-index-thumbnail'>
+              <div class='Image'>
+                <img expr:src='data:post.thumbnailUrl'/>
               </div>
             </div>
-            <div class="arb-right-group">
-              <span class="arb-buy"> ${fmt(item.buyPrice)}<span class="arb-rrp">RRP</span></span>
-              <div class="arb-prices">
-                <span class="arb-sell">${fmt(item.sellPrice)}</span>
-                <span class="arb-profit">+${fmt(item.profit)}</span>
-              </div>
-            </div>
+          </b:if>
+
+          <div class='post-body'>
+            <b:if cond='data:post.snippet'><data:post.snippet/></b:if>
           </div>
-        `;
-      });
-      html += `</div>`;
-    }
+        </div>
 
-    // 2. Блок імпорту в магазини міста Torn (унікальні предмети, без дублів)
-    if (data.importToTornShopsTop16 && Array.isArray(data.importToTornShopsTop16) && data.importToTornShopsTop16.length > 0) {
-      html += `<div class="torn-arb-card import-shop-card">
-        <div class="torn-arb-card-title">Top Import to Torn City Shops (${data.importToTornShopsTop16.length})</div>`;
+        <div style='clear: both;'/>
+      </a>
 
-      data.importToTornShopsTop16.forEach((item, index) => {
-        html += `
-          <div class="torn-arb-row">
-            <div class="arb-left-group">
-              <span class="arb-step">#${index + 1}</span>
-              <span class="arb-route"><span class="arb-country-badge-import">${item.from}</span> &rarr; <span>${item.shopName}</span></span>
-              <img class="arb-img" src="${item.image}" alt="${item.name}" loading="lazy" />
-              <div class="arb-item-wrap">
-                <span class="arb-item-name" title="${item.name}">${item.name}</span>
-              </div>
-            </div>
-            <div class="arb-right-group">
-              <span class="arb-buy">${fmt(item.buyPrice)}</span>
-              <div class="arb-prices">
-                <span class="arb-sell">${fmt(item.sellPrice)}</span>
-                <span class="arb-profit">+${fmt(item.profit)}</span>
-              </div>
-            </div>
+      <div class='mobile-index-comment'>
+        <b:include cond='data:blog.pageType != &quot;static_page&quot;                          and data:post.allowComments                          and data:post.numComments != 0' data='post' name='comment_count_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='mobile-main' var='top'>
+    <!-- posts -->
+    <div class='blog-posts hfeed'>
+
+      <b:include data='top' name='status-message'/>
+
+      <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-index-post'/>
+        </b:loop>
+      <b:else/>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-post'/>
+        </b:loop>
+      </b:if>
+    </div>
+
+   <b:include name='mobile-nextprev'/>
+</b:includable>
+            <b:includable id='mobile-nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>&amp;lsaquo;</a>
+      </div>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>&amp;rsaquo;</a>
+      </div>
+    </b:if>
+
+    <div class='mobile-link-button' id='blog-pager-home-link'>
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+    </div>
+
+    <div class='mobile-desktop-link'>
+      <a class='home-link' expr:href='data:desktopLinkUrl'><data:desktopLinkMsg/></a>
+    </div>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+            <b:includable id='mobile-post' var='post'>
+  <div class='date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <h2 class='date-header'><span><data:post.dateHeader/></span></h2>
+    </b:if>
+    <div class='date-posts'>
+      <div class='post-outer'>
+
+        <div class='post hentry uncustomized-post-template' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
+          </b:if>
+          <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+          <meta expr:content='data:post.id' itemprop='postId'/>
+
+          <a expr:name='data:post.id'/>
+          <b:if cond='data:post.title'>
+            <h3 class='post-title entry-title' itemprop='name'>
+              <b:if cond='data:post.link'>
+                <a expr:href='data:post.link'><data:post.title/></a>
+              <b:elseif cond='data:post.url and data:blog.url != data:post.url'/>
+                <a expr:href='data:post.url'><data:post.title/></a>
+              <b:else/>
+                <data:post.title/>
+              </b:if>
+            </h3>
+          </b:if>
+
+          <div class='post-header'>
+            <div class='post-header-line-1'/>
           </div>
-        `;
-      });
-      html += `</div>`;
-    }
 
-    // 3. Таблиці міждержавного арбітражу по країнах
-    if (data.arbitrage) {
-      for (const country in data.arbitrage) {
-        const rows = data.arbitrage[country];
-        if (!rows || rows.length === 0) continue;
+          <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
+            <data:post.body/>
+            <div style='clear: both;'/> <!-- clear for photos floats -->
+          </div>
 
-        html += `<div class="torn-arb-card">
-          <div class="torn-arb-card-title">${country}</div>`;
+          <div class='post-footer'>
+            <div class='post-footer-line post-footer-line-1'>
+              <span class='post-author vcard'>
+                <b:if cond='data:top.showAuthor'>
+                  <b:if cond='data:post.authorProfileUrl'>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                      <a expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                        <span itemprop='name'><data:post.author/></span>
+                      </a>
+                    </span>
+                  <b:else/>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <span itemprop='name'><data:post.author/></span>
+                    </span>
+                  </b:if>
+                </b:if>
+              </span>
 
-        rows.forEach(row => {
-          let dotClass = "dot-gray";
-          let stockTitle = "No YATA stock data";
+              <span class='post-timestamp'>
+                <b:if cond='data:top.showTimestamp'>
+                  <data:top.timestampLabel/>
+                  <b:if cond='data:post.url'>
+                    <meta expr:content='data:post.url.canonical' itemprop='url'/>
+                    <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+                  </b:if>
+                </b:if>
+              </span>
 
-          if (row.stockQty !== null && row.stockQty !== undefined) {
-            if (row.stockQty > 0) {
-              dotClass = "dot-green";
-              stockTitle = `In stock: ${row.stockQty} pcs`;
-            } else {
-              dotClass = "dot-red";
-              stockTitle = "Out of stock (0 pcs)";
+              <span class='post-comment-link'>
+                <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                                  and data:post.allowComments' data='post' name='comment_count_picker'/>
+              </span>
+            </div>
+
+            <div class='post-footer-line post-footer-line-2'>
+              <b:if cond='data:top.showMobileShare'>
+                <div class='mobile-link-button goog-inline-block' id='mobile-share-button'>
+                  <a href='javascript:void(0);'><data:shareMsg/></a>
+                </div>
+              </b:if>
+            </div>
+
+          </div>
+        </div>
+
+        <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <span id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'><data:newerPageTitle/></a>
+      </span>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <span id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'><data:olderPageTitle/></a>
+      </span>
+    </b:if>
+
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+
+    <b:if cond='data:mobileLinkUrl'>
+      <div class='blog-mobile-link'>
+        <a expr:href='data:mobileLinkUrl'><data:mobileLinkMsg/></a>
+      </div>
+    </b:if>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+            <b:includable id='post' var='post'>
+  <div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+    <b:if cond='data:post.firstImageUrl'>
+      <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
+    </b:if>
+    <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+    <meta expr:content='data:post.id' itemprop='postId'/>
+
+    <a expr:name='data:post.id'/>
+    <b:if cond='data:post.title'>
+      <h3 class='post-title entry-title' itemprop='name'>
+      <b:if cond='data:post.link or (data:post.url and data:blog.url != data:post.url)'>
+        <a expr:href='data:post.link ? data:post.link : data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+      </h3>
+    </b:if>
+
+    <div class='post-header'>
+    <div class='post-header-line-1'/>
+    </div>
+
+    <!-- Then use the post body as the schema.org description, for good G+/FB snippeting. -->
+    <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;'>
+      <data:post.body/>
+      <div style='clear: both;'/> <!-- clear for photos floats -->
+    </div>
+
+    <b:if cond='data:post.hasJumpLink'>
+      <div class='jump-link'>
+        <a expr:href='data:post.url + &quot;#more&quot;' expr:title='data:post.title'><data:post.jumpText/></a>
+      </div>
+    </b:if>
+
+    <div class='post-footer'>
+    <div class='post-footer-line post-footer-line-1'>
+      <span class='post-author vcard'>
+        <b:if cond='data:top.showAuthor'>
+          <data:top.authorLabel/>
+            <b:if cond='data:post.authorProfileUrl'>
+              <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                <a class='g-profile' expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                  <span itemprop='name'><data:post.author/></span>
+                </a>
+              </span>
+            <b:else/>
+              <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                <span itemprop='name'><data:post.author/></span>
+              </span>
+            </b:if>
+        </b:if>
+      </span>
+
+      <span class='post-timestamp'>
+        <b:if cond='data:top.showTimestamp'>
+          <data:top.timestampLabel/>
+          <b:if cond='data:post.url'>
+            <meta expr:content='data:post.url.canonical' itemprop='url'/>
+            <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+          </b:if>
+        </b:if>
+      </span>
+
+      <span class='post-comment-link'>
+        <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                          and data:post.allowComments' data='post' name='comment_count_picker'/>
+      </span>
+
+      <span class='post-icons'>
+        <!-- email post links -->
+        <b:if cond='data:post.emailPostUrl'>
+          <span class='item-action'>
+          <a expr:href='data:post.emailPostUrl' expr:title='data:top.emailPostMsg'>
+            <img alt='' class='icon-action' height='13' src='https://resources.blogblog.com/img/icon18_email.gif' width='18'/>
+          </a>
+          </span>
+        </b:if>
+
+        <!-- quickedit pencil -->
+        <b:include data='post' name='postQuickEdit'/>
+      </span>
+
+      <!-- share buttons -->
+      <div class='post-share-buttons goog-inline-block'>
+        <b:include cond='data:post.sharePostUrl' data='post' name='shareButtons'/>
+      </div>
+
+      </div>
+
+      <div class='post-footer-line post-footer-line-2'>
+      <span class='post-labels'>
+        <b:if cond='data:top.showPostLabels and data:post.labels'>
+          <data:postLabelsLabel/>
+          <b:loop values='data:post.labels' var='label'>
+            <a expr:href='data:label.url' rel='tag'><data:label.name/></a><b:if cond='not data:label.isLast'>,</b:if>
+          </b:loop>
+        </b:if>
+      </span>
+      </div>
+
+      <div class='post-footer-line post-footer-line-3'>
+      <span class='post-location'>
+        <b:if cond='data:top.showLocation and data:post.location'>
+          <data:postLocationLabel/>
+          <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+        </b:if>
+      </span>
+      </div>
+      <b:if cond='data:post.authorAboutMe'>
+        <div class='author-profile' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+          <b:if cond='data:post.authorPhoto.url'>
+            <img expr:src='data:post.authorPhoto.url' itemprop='image' width='50px'/>
+          </b:if>
+          <div>
+            <a class='g-profile' expr:href='data:post.authorProfileUrl' itemprop='url' rel='author' title='author profile'>
+              <span itemprop='name'><data:post.author/></span>
+            </a>
+          </div>
+          <span itemprop='description'><data:post.authorAboutMe/></span>
+        </div>
+      </b:if>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='postQuickEdit' var='post'>
+  <b:if cond='data:post.editUrl'>
+    <span expr:class='&quot;item-control &quot; + data:post.adminClass'>
+      <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'>
+        <img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+      </a>
+    </span>
+  </b:if>
+</b:includable>
+            <b:includable id='shareButtons' var='post'>
+  <b:if cond='data:top.showEmailButton'><a class='goog-inline-block share-button sb-email' expr:href='data:post.sharePostUrl + &quot;&amp;target=email&quot;' expr:title='data:top.emailThisMsg' target='_blank'><span class='share-button-link-text'><data:top.emailThisMsg/></span></a></b:if><b:if cond='data:top.showBlogThisButton'><a class='goog-inline-block share-button sb-blog' expr:href='data:post.sharePostUrl + &quot;&amp;target=blog&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' expr:title='data:top.blogThisMsg' target='_blank'><span class='share-button-link-text'><data:top.blogThisMsg/></span></a></b:if><b:if cond='data:top.showTwitterButton'><a class='goog-inline-block share-button sb-twitter' expr:href='data:post.sharePostUrl + &quot;&amp;target=twitter&quot;' expr:title='data:top.shareToTwitterMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToTwitterMsg/></span></a></b:if><b:if cond='data:top.showFacebookButton'><a class='goog-inline-block share-button sb-facebook' expr:href='data:post.sharePostUrl + &quot;&amp;target=facebook&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToFacebookMsg/></span></a></b:if><b:if cond='data:top.showPinterestButton'><a class='goog-inline-block share-button sb-pinterest' expr:href='data:post.sharePostUrl + &quot;&amp;target=pinterest&quot;' expr:title='data:top.shareToPinterestMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToPinterestMsg/></span></a></b:if>
+</b:includable>
+            <b:includable id='status-message'>
+  <b:if cond='data:navMessage'>
+  <div class='status-msg-wrap'>
+    <div class='status-msg-body'>
+      <data:navMessage/>
+    </div>
+    <div class='status-msg-border'>
+      <div class='status-msg-bg'>
+        <div class='status-msg-hidden'><data:navMessage/></div>
+      </div>
+    </div>
+  </div>
+  <div style='clear: both;'/>
+  </b:if>
+</b:includable>
+            <b:includable id='threaded-comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <b:if cond='data:mobile'>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+    <b:else/>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    </b:if>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='threaded_comment_js' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+
+  <script type='text/javascript'>
+    (function() {
+      var items = <data:post.commentJso/>;
+      var msgs = <data:post.commentMsgs/>;
+      var config = <data:post.commentConfig/>;
+
+// <![CDATA[
+      var cursor = null;
+      if (items && items.length > 0) {
+        cursor = parseInt(items[items.length - 1].timestamp) + 1;
+      }
+
+      var bodyFromEntry = function(entry) {
+        var text = (entry &&
+                    ((entry.content && entry.content.$t) ||
+                     (entry.summary && entry.summary.$t))) ||
+            '';
+        if (entry && entry.gd$extendedProperty) {
+          for (var k in entry.gd$extendedProperty) {
+            if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') {
+              return '<span class="deleted-comment">' + text + '</span>';
             }
           }
+        }
+        return text;
+      }
 
-          html += `
-            <div class="torn-arb-row">
-              <div class="arb-left-group">
-                <img class="arb-img" src="${row.image}" alt="${row.name}" loading="lazy" />
-                <div class="arb-item-wrap">
-                  <span class="arb-item-name" title="${row.name}">${row.name}</span>
-                  <span class="stock-dot ${dotClass}" title="${stockTitle}"></span>
+      var parse = function(data) {
+        cursor = null;
+        var comments = [];
+        if (data && data.feed && data.feed.entry) {
+          for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
+            var comment = {};
+            // comment ID, parsed out of the original id format
+            var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t);
+            comment.id = id ? id[2] : null;
+            comment.body = bodyFromEntry(entry);
+            comment.timestamp = Date.parse(entry.published.$t) + '';
+            if (entry.author && entry.author.constructor === Array) {
+              var auth = entry.author[0];
+              if (auth) {
+                comment.author = {
+                  name: (auth.name ? auth.name.$t : undefined),
+                  profileUrl: (auth.uri ? auth.uri.$t : undefined),
+                  avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined)
+                };
+              }
+            }
+            if (entry.link) {
+              if (entry.link[2]) {
+                comment.link = comment.permalink = entry.link[2].href;
+              }
+              if (entry.link[3]) {
+                var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href);
+                if (pid && pid[1]) {
+                  comment.parentId = pid[1];
+                }
+              }
+            }
+            comment.deleteclass = 'item-control blog-admin';
+            if (entry.gd$extendedProperty) {
+              for (var k in entry.gd$extendedProperty) {
+                if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') {
+                  comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value;
+                } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') {
+                  comment.displayTime = entry.gd$extendedProperty[k].value;
+                }
+              }
+            }
+            comments.push(comment);
+          }
+        }
+        return comments;
+      };
+
+      var paginator = function(callback) {
+        if (hasMore()) {
+          var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50';
+          if (cursor) {
+            url += '&published-min=' + new Date(cursor).toISOString();
+          }
+          window.bloggercomments = function(data) {
+            var parsed = parse(data);
+            cursor = parsed.length < 50 ? null
+                : parseInt(parsed[parsed.length - 1].timestamp) + 1
+            callback(parsed);
+            window.bloggercomments = null;
+          }
+          url += '&callback=bloggercomments';
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+        }
+      };
+      var hasMore = function() {
+        return !!cursor;
+      };
+      var getMeta = function(key, comment) {
+        if ('iswriter' == key) {
+          var matches = !!comment.author
+              && comment.author.name == config.authorName
+              && comment.author.profileUrl == config.authorUrl;
+          return matches ? 'true' : '';
+        } else if ('deletelink' == key) {
+          return config.baseUri + '/comment/delete/'
+               + config.blogId + '/' + comment.id;
+        } else if ('deleteclass' == key) {
+          return comment.deleteclass;
+        }
+        return '';
+      };
+
+      var replybox = null;
+      var replyUrlParts = null;
+      var replyParent = undefined;
+
+      var onReply = function(commentId, domId) {
+        if (replybox == null) {
+          // lazily cache replybox, and adjust to suit this style:
+          replybox = document.getElementById('comment-editor');
+          if (replybox != null) {
+            replybox.height = '250px';
+            replybox.style.display = 'block';
+            replyUrlParts = replybox.src.split('#');
+          }
+        }
+        if (replybox && (commentId !== replyParent)) {
+          replybox.src = '';
+          document.getElementById(domId).insertBefore(replybox, null);
+          replybox.src = replyUrlParts[0]
+              + (commentId ? '&parentID=' + commentId : '')
+              + '#' + replyUrlParts[1];
+          replyParent = commentId;
+        }
+      };
+
+      var hash = (window.location.hash || '#').substring(1);
+      var startThread, targetComment;
+      if (/^comment-form_/.test(hash)) {
+        startThread = hash.substring('comment-form_'.length);
+      } else if (/^c[0-9]+$/.test(hash)) {
+        targetComment = hash.substring(1);
+      }
+
+      // Configure commenting API:
+      var configJso = {
+        'maxDepth': config.maxThreadDepth
+      };
+      var provider = {
+        'id': config.postId,
+        'data': items,
+        'loadNext': paginator,
+        'hasMore': hasMore,
+        'getMeta': getMeta,
+        'onReply': onReply,
+        'rendered': true,
+        'initComment': targetComment,
+        'initReplyThread': startThread,
+        'config': configJso,
+        'messages': msgs
+      };
+
+      var render = function() {
+        if (window.goog && window.goog.comments) {
+          var holder = document.getElementById('comment-holder');
+          window.goog.comments.render(holder, provider);
+        }
+      };
+
+      // render now, or queue to render when library loads:
+      if (window.goog && window.goog.comments) {
+        render();
+      } else {
+        window.goog = window.goog || {};
+        window.goog.comments = window.goog.comments || {};
+        window.goog.comments.loadQueue = window.goog.comments.loadQueue || [];
+        window.goog.comments.loadQueue.push(render);
+      }
+    })();
+// ]]>
+  </script>
+</b:includable>
+            <b:includable id='threaded_comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+      <h4><data:post.commentLabelFull/>:</h4>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:post.oldestLinkText/></a>
+              &#160;
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:post.olderLinkText/></a>
+              &#160;
+          </b:if>
+
+          <data:post.commentRangeText/>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:post.newerLinkText/></a>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:post.newestLinkText/></a>
+          </b:if>
+        </span>
+      </b:if>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+          <b:loop values='data:post.comments' var='comment'>
+            <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+              <b:if cond='data:comment.favicon'>
+                <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
+              </b:if>
+              <a expr:name='data:comment.anchorName'/>
+              <b:if cond='data:blog.enabledCommentProfileImages'>
+                <data:comment.authorAvatarImage/>
+              </b:if>
+              <b:if cond='data:comment.authorUrl'>
+                <a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a>
+              <b:else/>
+                <data:comment.author/>
+              </b:if>
+              <data:commentPostedByMsg/>
+            </dt>
+            <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+              <b:if cond='data:comment.isDeleted'>
+                <span class='deleted-comment'><data:comment.body/></span>
+              <b:else/>
+                <p>
+                  <data:comment.body/>
+                </p>
+              </b:if>
+            </dd>
+            <dd class='comment-footer'>
+              <span class='comment-timestamp'>
+                <a expr:href='data:comment.url' title='comment permalink'>
+                  <data:comment.timestamp/>
+                </a>
+                <b:include data='comment' name='commentDeleteIcon'/>
+              </span>
+            </dd>
+          </b:loop>
+        </dl>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+            <data:post.oldestLinkText/>
+          </a>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+            <data:post.olderLinkText/>
+          </a>
+          &#160;
+          <data:post.commentRangeText/>
+          &#160;
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+            <data:post.newerLinkText/>
+          </a>
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+            <data:post.newestLinkText/>
+          </a>
+        </span>
+      </b:if>
+
+      <p class='comment-footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='comment-form'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:elseif cond='data:post.allowComments'/>
+          <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a>
+        </b:if>
+      </p>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+
+  </div>
+</b:includable>
+          </b:widget>
+        </b:section>
+    </div>
+
+    <!-- Підвал -->
+    <div class='footer'>
+        <p>&#169; 2026 <data:blog.title/></p>
+    </div>
+
+    <!-- Рендер таблиць тревел-арбітражу (без кількості та наявності) -->
+    <script type='text/javascript'>
+    // <![CDATA[
+    (function() {
+      const TRAVEL_JSON_URL = "https://YOUR-WORKER-URL.workers.dev/travel.json";
+
+      function formatMoney(val) {
+        const num = Number(val);
+        if (!Number.isFinite(num)) return "$0";
+        return "$" + Math.round(num).toLocaleString("en-US");
+      }
+
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function renderItemCell(row) {
+        const imgHtml = row.image
+          ? `<img class="arb-item-img" src="${escapeHtml(row.image)}" alt="${escapeHtml(row.name)}" loading="lazy"/>`
+          : "";
+        const typeHtml = row.type ? `<span class="arb-item-type">${escapeHtml(row.type)}</span>` : "";
+        return `
+          <div class="arb-item-cell">
+            ${imgHtml}
+            <div>
+              <div class="arb-item-name">${escapeHtml(row.name)}</div>
+              ${typeHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderDealTable(rows, mode) {
+        if (!Array.isArray(rows) || rows.length === 0) {
+          return `<div class="travel-empty">Немає вигідних позицій.</div>`;
+        }
+
+        const isExport = mode === "export";
+        const countryHeader = isExport ? "Куди" : "Звідки";
+
+        const bodyHtml = rows.map(row => {
+          const countryName = isExport ? row.to : row.from;
+          const shopSub = (!isExport && row.shopName)
+            ? `<span class="arb-shop">${escapeHtml(row.shopName)}</span>`
+            : "";
+
+          return `
+            <tr>
+              <td>${renderItemCell(row)}</td>
+              <td class="arb-country">${escapeHtml(countryName)}${shopSub}</td>
+              <td class="arb-price">${formatMoney(row.buyPrice)}</td>
+              <td class="arb-price">${formatMoney(row.sellPrice)}</td>
+              <td class="arb-profit">+${formatMoney(row.profit)}</td>
+            </tr>
+          `;
+        }).join("");
+
+        return `
+          <table class="arb-table">
+            <thead>
+              <tr>
+                <th>Предмет</th>
+                <th>${countryHeader}</th>
+                <th>Купівля</th>
+                <th>Продаж</th>
+                <th>Прибуток</th>
+              </tr>
+            </thead>
+            <tbody>${bodyHtml}</tbody>
+          </table>
+        `;
+      }
+
+      function renderArbitrageSection(arbitrageMap) {
+        const entries = Object.entries(arbitrageMap || {});
+        if (entries.length === 0) {
+          return `<div class="travel-empty">Немає міждержавних пропозицій.</div>`;
+        }
+
+        const cardsHtml = entries.map(([country, list]) => {
+          const rowsHtml = (Array.isArray(list) ? list : []).map(row => `
+            <tr>
+              <td>${renderItemCell(row)}</td>
+              <td class="arb-country">${escapeHtml(row.sellTarget)}</td>
+              <td class="arb-price">${formatMoney(row.buyPrice)}</td>
+              <td class="arb-price">${formatMoney(row.sellPrice)}</td>
+              <td class="arb-profit">+${formatMoney(row.profit)}</td>
+            </tr>
+          `).join("");
+
+          return `
+            <div class="travel-card">
+              <h4>Купівля: ${escapeHtml(country)}</h4>
+              <table class="arb-table">
+                <thead>
+                  <tr>
+                    <th>Предмет</th>
+                    <th>Продаж у</th>
+                    <th>Купівля</th>
+                    <th>Продаж</th>
+                    <th>Прибуток</th>
+                  </tr>
+                </thead>
+                <tbody>${rowsHtml || `<tr><td colspan="5" class="travel-empty">Немає даних</td></tr>`}</tbody>
+              </table>
+            </div>
+          `;
+        }).join("");
+
+        return `<div class="travel-grid-2">${cardsHtml}</div>`;
+      }
+
+      function findMountTarget() {
+        const explicit = document.getElementById("torn-travel-app");
+        if (explicit) return explicit;
+
+        const postBodies = document.querySelectorAll(".post-body");
+        if (postBodies.length === 1) {
+          const created = document.createElement("div");
+          created.id = "torn-travel-app";
+          postBodies[0].appendChild(created);
+          return created;
+        }
+        return null;
+      }
+
+      async function loadTravelData(container) {
+        container.innerHTML = `
+          <div class="travel-dashboard">
+            <div class="travel-meta"><span>Завантаження актуальних даних...</span></div>
+          </div>
+        `;
+
+        try {
+          const res = await fetch(TRAVEL_JSON_URL, { cache: "no-store" });
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+          }
+          const data = await res.json();
+
+          container.innerHTML = `
+            <div class="travel-dashboard">
+              <div class="travel-meta">
+                <div>Синхронізація: <strong>${escapeHtml(data.syncedUtc || "--:-- UTC")}</strong></div>
+                <button type="button" class="travel-refresh-btn" id="travel-refresh-btn">Оновити</button>
+              </div>
+
+              <div class="travel-section">
+                <h3 class="travel-section-title">Експорт з Torn</h3>
+                <div class="travel-grid-2">
+                  <div class="travel-card">
+                    <h4>Зброя, Броня, Наркотики</h4>
+                    ${renderDealTable(data.exportGearDrugsTop16, "export")}
+                  </div>
+                  <div class="travel-card">
+                    <h4>Все інше</h4>
+                    ${renderDealTable(data.exportTop16, "export")}
+                  </div>
                 </div>
               </div>
-              <div class="arb-right-group">
-                <span class="arb-buy">${fmt(row.buyPrice)}</span>
-                <span class="arb-target">&rarr; <span class="arb-country-badge">${row.sellTarget}</span></span>
-                <div class="arb-prices">
-                  <span class="arb-sell">${fmt(row.sellPrice)}</span>
-                  <span class="arb-profit">+${fmt(row.profit)}</span>
+
+              <div class="travel-section">
+                <h3 class="travel-section-title">Імпорт у Torn</h3>
+                <div class="travel-grid-2">
+                  <div class="travel-card">
+                    <h4>Зброя, Броня, Наркотики</h4>
+                    ${renderDealTable(data.importGearDrugsTop16, "import")}
+                  </div>
+                  <div class="travel-card">
+                    <h4>Все інше</h4>
+                    ${renderDealTable(data.importOtherTop16, "import")}
+                  </div>
                 </div>
+              </div>
+
+              <div class="travel-section">
+                <h3 class="travel-section-title">Міждержавний арбітраж</h3>
+                ${renderArbitrageSection(data.arbitrage)}
               </div>
             </div>
           `;
-        });
-        html += `</div>`;
+
+          const btn = document.getElementById("travel-refresh-btn");
+          if (btn) {
+            btn.addEventListener("click", () => loadTravelData(container));
+          }
+        } catch (err) {
+          container.innerHTML = `
+            <div class="travel-dashboard">
+              <div class="travel-error">Не вдалося завантажити дані арбітражу: ${escapeHtml(err.message)}</div>
+            </div>
+          `;
+        }
       }
-    }
 
-    root.innerHTML = html;
-  }
-
-  loadData();
-})();
-</script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const mount = findMountTarget();
+        if (mount) {
+          loadTravelData(mount);
+        }
+      });
+    })();
+    // ]]>
+    </script>
 
 </body>
 </html>

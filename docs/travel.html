@@ -42,14 +42,6 @@
       padding-bottom: 8px;
     }
 
-    .torn-arb-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
-      margin: 0;
-      line-height: 1.2;
-    }
-
     .torn-arb-updated {
       font-size: clamp(12px, 1.3vw, 14px);
       color: #9ba3ae;
@@ -361,18 +353,17 @@
       const syncLabel = formatServerSync(data);
       let html = `
         <div class="torn-arb-header">
-          <h3 class="torn-arb-title">Torn City — Export, Import &amp; Intercity Arbitrage</h3>
           <span class="torn-arb-updated">${syncLabel}</span>
         </div>
       `;
 
       // 1. Експорт з Torn (Зброя, Броня, Наркотики + Все інше)
       const exportGearDrugsHtml = renderExportCard(
-        "Top Export from Torn — Weapons, Armor & Drugs",
+        "Other Items >40K",
         data.exportGearDrugsTop16
       );
       const exportOtherHtml = renderExportCard(
-        "Top Export from Torn — Other Items",
+        "<40K",
         data.exportTop16
       );
       if (exportGearDrugsHtml || exportOtherHtml) {
@@ -384,11 +375,11 @@
       const importGearDrugsList = data.importGearDrugsTop16 || [];
       const importOtherList = data.importOtherTop16 || data.importToTornShopsTop16 || [];
       const importGearDrugsHtml = renderImportCard(
-        "Top Import to Torn — Weapons, Armor & Drugs",
+        "Other Items >40K - Drugs",
         importGearDrugsList
       );
       const importOtherHtml = renderImportCard(
-        "Top Import to Torn — Other Items",
+        "<40K",
         importOtherList
       );
       if (importGearDrugsHtml || importOtherHtml) {

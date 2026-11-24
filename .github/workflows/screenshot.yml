@@ -2,7 +2,7 @@ name: Daily Torn Travel Screenshot
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '23 1 * * *'
   workflow_dispatch:
 
 permissions:
